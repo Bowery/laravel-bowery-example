@@ -1,0 +1,12 @@
+{
+  "db": {
+    "image": "mysql",
+    "ports": [
+      3306
+    ]
+  },
+  "web": {
+    "image": "php55",
+    "path": "."
+  }
+}

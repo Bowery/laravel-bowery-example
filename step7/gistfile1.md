@@ -1,0 +1,35 @@
+- `mkdir todo && cd todo`
+- Download the http://laravel.com/laravel.phar file into the current directory. 
+- Copy the above patch files named `000-default.conf.patch` and `database.php.patch`, `composer.json.patch`, and `app.php.patch` into the current directory.
+- Copy the included `.env.php` file in the current directory.
+- `bowery add web` (image: 'php55', path: '.')
+- `bowery add db` (image: 'mysql', ports: 3306)
+- `bowery connect` (Disconnect after upload is complete)
+- `bowery ssh web`
+   - `cd /application && chmod +x laravel.phar`
+   - `./laravel.phar new todo && mv todo/* . && rm -rf todo` (Generate the laravel application and move it to the parent)
+   - `patch composer.json < composer.json.patch` (Install the generators package)
+   - `composer update --dev`
+   - `patch app/config/app.php < app.php.patch` (Enable the generators for artisan)
+   - `php artisan generate:resource task --fields="description:text, completed:boolean"` (Yes to all prompts except migration)
+   - `patch /etc/apache2/sites-enabled/000-default.conf < 000-default.conf.patch` (This fixes routing w/ Laravel)
+   - `touch /application/app/storage/logs/laravel.log` (Ensure it exists, so we don't get perm issues along the way)
+   - `chown -R www-data:www-data /application/app/storage` (Make sure it's writable by Apache)
+   - `service apache2 restart` (Required for some reason)
+- `bowery ssh db`
+   - Connect with `mysql --user=root --password=your_password` ("your_password" is the default)
+     - `CREATE USER 'root'@'%' IDENTIFIED BY 'your_password';` (The default root is only available on localhost)
+     - `GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' WITH GRANT OPTION;`
+     - `create database todo;` (Create database for the application)
+- `bowery pull` (This will pull down your application along with all the generated code above, select yes if prompted to overwrite)
+- `bowery connect` (Reconnect, and stay connected from here on)
+- `patch app/config/database.php < database.php.patch` (Get DB host from env, `database.php.patch` needs to exist locally)
+- `bowery ssh web`
+   - Open `/application/.env.php` and replace '{DB_PORT_3306_ADDR}' with the address in `/application/.htaccess` on the line matching `SetEnv DB_PORT_3306_ADDR`. (This is because artisan doesn't read .htaccess, it fixes migration issues)
+   - `php artisan migrate` (Migrate the database creating tables, continue if prompted)
+- Write the layout `main.blade.php` to the `app/views/layouts` directory, you may have to create it.
+- Write the included base controller `BaseController.php` to the `app/controllers` directory.
+- Write the included `routes.php` file in the `app` directory. 
+- Write the included tasks controller `TasksController.php` to the `app/controllers` directory.
+- Write the included blade views(labeled '.blade.php', except `main.blade.php`) to the `app/views/tasks` directory.
+- Write the included task model `Task.php` to the `app/models` directory.

@@ -1,0 +1,11 @@
+57,60c57,61
+< 			'host'      => 'localhost',
+< 			'database'  => 'forge',
+< 			'username'  => 'forge',
+< 			'password'  => '',
+---
+> 			'host'      => parse_url(getenv("DB_PORT_3306_ADDR"), PHP_URL_HOST),
+> 			'port'      => parse_url(getenv("DB_PORT_3306_ADDR"), PHP_URL_PORT),
+> 			'database'  => 'todo',
+> 			'username'  => 'root',
+> 			'password'  => 'your_password',

@@ -1,0 +1,9 @@
+12c12
+< 	DocumentRoot /application
+---
+> 	DocumentRoot /application/public
+14c14
+< 	<Directory /application>
+---
+> 	<Directory /application/public>
+
