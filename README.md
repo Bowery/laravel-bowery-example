@@ -27,7 +27,7 @@ cd /application && chmod +x laravel.phar
 // install the generators package
 patch composer.json < composer.json.patch
 
-// update composer
+// update composer (might take a while)
 composer update --dev
 
 // enable the generators for artisan
@@ -77,7 +77,7 @@ exit
 ```
 
 ### 4. Pull down your changes.
-Run `bowery pull` (say yes to overwriting) and then `bowery connect`. **Keep connect running and open a new terminal window.**
+Run `bowery pull` (say yes to overwriting) and then `bowery connect`. **Keep Bowery running there and open a new terminal window.**
 
 ```
 $ bowery pull
