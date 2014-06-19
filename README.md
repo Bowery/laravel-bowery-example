@@ -5,7 +5,8 @@ laravel-example
 An example Laravel application powered by Bowery.
 
 ## Short version
-1. Type `bowery connect` to do an initial upload of your files.
+0. git clone git@github.com:Bowery/laravel-bowery-example.git && cd laravel-bowery-example
+1. Type `bowery connect` to do an initial upload of your files. Wait until you see `Service web upload complete. Syncing file changes.` to disconnect.
 2. `bowery ssh web`, then run 
 
 ```
@@ -98,8 +99,8 @@ Service web upload complete. Syncing file changes.
 
 echo "<?php return array('DB_PORT_3306_ADDR' => '"$(cat /application/.htaccess | grep DB_PORT_3306_ADDR | awk '{print $3}')"');" > /application/.env.php
 
-// migrate the database creating tables-continue if prompted
-php artisan migrate
+// migrate the database creating tables-say yes if it asks if you're sure you want to run the command, and ignore any errors or warnings that come up
+cd ../application/ && php artisan migrate
 
 // exit back to local machine
 exit
@@ -109,17 +110,9 @@ exit
 7. Move files into their correct locations
 
 ```
-$ mkdir app/views/layouts
-$ mv ./step7/main.blade.php ./app/views/layouts/main.blade.php
-$ mv ./step7/BaseController.php ./app/controllers/BaseController.php
-$ mv ./step7/routes.php ./app/routes.php
-$ mv ./step7/TasksController.php ./app/controllers/TasksController.php 
-$ mv ./step7/create.blade.php ./app/views/tasks/create.blade.php
-$ mv ./step7/edit.blade.php ./app/views/tasks/edit.blade.php
-$ mv ./step7/index.blade.php ./app/views/tasks/index.blade.php
-$ mv ./step7/Task.php ./app/models/Task.php
+mkdir app/views/layouts && mv ./step7/main.blade.php ./app/views/layouts/main.blade.php && mv ./step7/BaseController.php ./app/controllers/BaseController.php && mv ./step7/routes.php ./app/routes.php && mv ./step7/TasksController.php ./app/controllers/TasksController.php && mv ./step7/create.blade.php ./app/views/tasks/create.blade.php && mv ./step7/edit.blade.php ./app/views/tasks/edit.blade.php && mv ./step7/index.blade.php ./app/views/tasks/index.blade.php && mv ./step7/Task.php ./app/models/Task.php
 
-
+8. Go back to your tab where Bowery connect is still running, and copy 
 
 ```
 
