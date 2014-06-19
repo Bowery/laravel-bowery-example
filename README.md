@@ -5,9 +5,12 @@ laravel-example
 An example Laravel application powered by Bowery.
 
 ## Short version
-0. git clone git@github.com:Bowery/laravel-bowery-example.git && cd laravel-bowery-example
-1. Type `bowery connect` to do an initial upload of your files. Wait until you see `Service web upload complete. Syncing file changes.` to disconnect.
-2. `bowery ssh web`, then run 
+
+1. Get the files by running 
+`git clone git@github.com:Bowery/laravel-bowery-example.git && cd laravel-bowery-example`
+
+2. Type `bowery connect` to do an initial upload of your files. Wait until you see `Service web upload complete. Syncing file changes.` to disconnect.
+3. `bowery ssh web`, then run 
 
 ```
 // so the .phar file is executable
@@ -44,8 +47,7 @@ service apache2 restart
 exit
 
 ```
-
-3. `bowery ssh db`, and then run
+4. `bowery ssh db`, and then run
 
 ```
 // connect to mysql (your_password is the default password)
